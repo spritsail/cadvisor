@@ -1,4 +1,4 @@
-ARG CADVISOR_VER=v0.44.1
+ARG CADVISOR_VER=v0.45.0
 ARG GIT_REPO=https://github.com/frebib/cadvisor.git
 ARG GIT_BRANCH=feat/tls
 
@@ -60,7 +60,7 @@ RUN apk --no-cache add curl libc6-compat device-mapper thin-provisioning-tools f
 
 # Grab cadvisor and libpfm4 from "build" container.
 COPY --from=build /usr/local/lib/libpfm.so* /usr/local/lib/
-COPY --from=build /go/src/github.com/google/cadvisor/cadvisor /usr/bin/cadvisor
+COPY --from=build /go/src/github.com/google/cadvisor/_output/cadvisor /usr/bin/cadvisor
 
 EXPOSE 8080
 
