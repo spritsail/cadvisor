@@ -1,4 +1,4 @@
-ARG CADVISOR_VER=v0.45.0
+ARG CADVISOR_VER=v0.46.0
 ARG GIT_REPO=https://github.com/frebib/cadvisor.git
 ARG GIT_BRANCH=feat/tls
 
@@ -43,7 +43,9 @@ WORKDIR /go/src/github.com/google/cadvisor
 RUN git clone $GIT_REPO -b $GIT_BRANCH . && \
     ./build/build.sh
 
-FROM spritsail/alpine:3.16
+# ~~~~~~~~~~~~~~~~~~~~~~~~~
+
+FROM spritsail/alpine:3.17
 
 ARG CADVISOR_VER
 
