@@ -49,13 +49,12 @@ FROM spritsail/alpine:3.17
 
 ARG CADVISOR_VER
 
-LABEL maintainer="Spritsail <cadvisor@spritsail.io>" \
-      org.label-schema.vendor="Spritsail" \
-      org.label-schema.name="cAdvisor" \
-      org.label-schema.url="https://github.com/google/cadvisor" \
-      org.label-schema.description="https://github.com/frebib/cadvisor" \
-      org.label-schema.vcs-url="https://github.com/spritsail/cadvisor" \
-      org.label-schema.version=${CADVISOR_VER}
+LABEL org.opencontainers.image.authors="Spritsail <cadvisor@spritsail.io>" \
+      org.opencontainers.image.title="cAdvisor" \
+      org.opencontainers.image.url="https://github.com/google/cadvisor" \
+      org.opencontainers.image.description="https://github.com/frebib/cadvisor" \
+      org.opencontainers.image.source="https://github.com/spritsail/cadvisor" \
+      org.opencontainers.image.version=${CADVISOR_VER}
 
 RUN apk --no-cache add curl libc6-compat device-mapper thin-provisioning-tools findutils zfs ndctl && \
     echo 'hosts: files mdns4_minimal [NOTFOUND=return] dns mdns4' >> /etc/nsswitch.conf
