@@ -1,4 +1,4 @@
-ARG CADVISOR_VER=v0.46.0
+ARG CADVISOR_VER=v0.47.0
 ARG GIT_REPO=https://github.com/frebib/cadvisor.git
 ARG GIT_BRANCH=feat/tls
 
@@ -32,14 +32,12 @@ RUN export DBG="-g -Wall" && \
   make -e -C libpfm-4.11.0 && \
   make install -C libpfm-4.11.0
 
-ENV GOROOT /usr/lib/go
-ENV GOPATH /go
 ENV GO_FLAGS="-tags=libpfm,netgo"
 
 ARG GIT_REPO
 ARG GIT_BRANCH
 
-WORKDIR /go/src/github.com/google/cadvisor
+WORKDIR /tmp/cadvisor
 RUN git clone $GIT_REPO -b $GIT_BRANCH . && \
     ./build/build.sh
 
@@ -61,7 +59,7 @@ RUN apk --no-cache add curl libc6-compat device-mapper thin-provisioning-tools f
 
 # Grab cadvisor and libpfm4 from "build" container.
 COPY --from=build /usr/local/lib/libpfm.so* /usr/local/lib/
-COPY --from=build /go/src/github.com/google/cadvisor/_output/cadvisor /usr/bin/cadvisor
+COPY --from=build /tmp/cadvisor/_output/cadvisor /usr/bin/cadvisor
 
 EXPOSE 8080
 
