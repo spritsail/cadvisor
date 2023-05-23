@@ -43,7 +43,7 @@ RUN git clone $GIT_REPO -b $GIT_BRANCH . && \
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-FROM spritsail/alpine:3.17
+FROM spritsail/alpine:3.18
 
 ARG CADVISOR_VER
 
