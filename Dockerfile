@@ -32,7 +32,7 @@ RUN export DBG="-g -Wall" && \
   make -e -C libpfm-4.11.0 && \
   make install -C libpfm-4.11.0
 
-ENV GO_FLAGS="-tags=libpfm,netgo"
+ENV GO_FLAGS="-tags=libpfm,netgo -trimpath"
 
 ARG GIT_REPO
 ARG GIT_BRANCH
