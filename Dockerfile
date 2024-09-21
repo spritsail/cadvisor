@@ -1,4 +1,4 @@
-ARG CADVISOR_VER=v0.49.1
+ARG CADVISOR_VER=v0.50.0
 ARG GIT_REPO=https://github.com/frebib/cadvisor.git
 ARG GIT_BRANCH=feat/tls
 
