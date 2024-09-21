@@ -66,6 +66,12 @@ EXPOSE 8080
 ENV CADVISOR_HEALTHCHECK_URL=http://localhost:8080/healthz
 
 HEALTHCHECK --interval=30s --timeout=3s \
-  CMD wget --quiet --tries=1 --spider $CADVISOR_HEALTHCHECK_URL || exit 1
+  CMD \
+    set -ex && \
+    if [ -n "$CADVISOR_HEALTHCHECK_CERT" ]; then \
+        exec test "$(curl -fsS -o /dev/null --cert "$CADVISOR_HEALTHCHECK_CERT" --key "$CADVISOR_HEALTHCHECK_KEY" --cacert "$CADVISOR_HEALTHCHECK_CA" "$CADVISOR_HEALTHCHECK_URL" -w '%{http_code}')" = 200; \
+    else \
+        exec test "$(curl -fsS -o /dev/null "$CADVISOR_HEALTHCHECK_URL" -w '%{http_code}')" = 200; \
+    fi
 
 ENTRYPOINT ["/usr/bin/cadvisor", "-logtostderr"]
